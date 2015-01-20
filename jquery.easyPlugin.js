@@ -7,7 +7,6 @@
  *  联系：16295853（qq）
  ************************************************************/
 
-//pluginBody插件
 (function ($) {
     //函数的typeof名称
     var FUNCTION_NAME = 'function';
