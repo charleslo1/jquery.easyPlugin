@@ -15,12 +15,13 @@
     $.easyPlugin = function (pluginName, pluginBody, isGlobal) {
         //注册插件
         (function ($) {
+            //是否注册全局插件
             if(isGlobal){
-                //注册全局插件
+                //注册全局插件：$.pluginName();
                 $[pluginName] = pluginBody;
             }else{
-                //注册元素插件
-                $.fn[pluginName] = function (options) {
+                //注册元素插件：$(selector).pluginName(options:JSON, [isReturnPluginObj:boolean]);
+                $.fn[pluginName] = function (options, isReturnPluginObj) {
                     //获取命令和参数
                     var command = 'init';
                     if(arguments.length > 0){
@@ -42,8 +43,15 @@
                                 //将当前插件对象保存到data中
                                 $item.data(pluginName, pluginObj);
                             });
-                            //保持操作链
-                            return this;
+
+                            //判断是否返回插件对象
+                            if(isReturnPluginObj){
+                                //返回插件对象
+                                return this.data(pluginName);
+                            }else{
+                                //保持操作链
+                                return this;   
+                            }
                         break;
                         //获取当前插件对象：var pluginObj = $(selector).plugin('_');
                         case '_':
@@ -52,7 +60,9 @@
                         break;
                         //执行插件对象方法或属性：$(selector).plugin('methodName/propertyName', [parameters]);
                         default:
+                            //获取插件对象
                             var pluginObj = this.data(pluginName);
+                            //获取插件对象成员（属性/方法）
                             var member = pluginObj[command];
                             if(member){
                                 //判断是否为方法
