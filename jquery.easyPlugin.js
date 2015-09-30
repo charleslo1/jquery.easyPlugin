@@ -1,11 +1,10 @@
-/* 
+/* =========================================================
  *  jQuery插件注册工具 easyPlugin
- * ----------------------------------
- *  作者：Charles
- *  时间：2014-10-24
- *  准则：jQuery 插件
- *  联系：16295853（qq）
- ************************************************************/
+ * =========================================================
+ *  @Auther：    Charles
+ *  @Date：      2014-10-24
+ *  @Contact：   16295853（wechat&qq）
+ * ========================================================= */
 
 (function ($) {
     //函数的typeof名称
@@ -67,12 +66,12 @@
                             if(member){
                                 //判断是否为方法
                                 if(typeof(member) == FUNCTION_NAME){
-                                    var arguments = arguments[1];
-                                    if(!arguments || arguments.constructor.name != 'Array'){
-                                        arguments = [];
+                                    var parameters = arguments[1];
+                                    if(!parameters || parameters.constructor.name != 'Array'){
+                                        parameters = [];
                                     }
                                     //执行方法
-                                    var result = member.apply(pluginObj, arguments);
+                                    var result = member.apply(pluginObj, parameters);
                                     //判断是否有返回结果，有则直接return结果
                                     if(result){
                                         return result;
